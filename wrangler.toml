@@ -1,13 +1,16 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "dotnet-counter-app"
+name = "my-counter-app"
 compatibility_date = "2026-09-29"
 
-[site]
-# NOTE: While wrangler [site] is traditionally for Workers, 
-# for Cloudflare Pages you must specify your .NET environment variables here:
-[vars]
-DOTNET_VERSION = "8.0"
+[pages_build_config]
+# 1. Root directory (ค่าเริ่มต้นคือจุดที่วางไฟล์ wrangler.toml หรือ root ของ git)
+root_dir = ""
 
-# Note on Framework Presets & Git Branches:
-# These must be set directly in the Cloudflare Dashboard UI under 
-# Settings > Build & deployments. They will ignore values written in this file.
+# 2. Framework preset (เนื่องจาก Blazor ไม่มี preset สำเร็จรูป จึงต้องใช้ "none")
+framework_preset = "none"
+
+# 3. Build command สำหรับติดตั้ง .NET 10 SDK และสั่ง Publish ผลลัพธ์ออกไป
+build_command = "curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin -c 10.0 && ./~/.dotnet/dotnet publish -c Release -o output"
+
+# 4. Output directory ของ Blazor WASM ที่ Cloudflare Pages จะนำไป Serve (ต้องชี้ไปที่ wwwroot)
+destination_dir = "output/wwwroot"
