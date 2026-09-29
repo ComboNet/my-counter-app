@@ -1,0 +1,13 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "dotnet-counter-app"
+compatibility_date = "2026-09-29"
+
+[site]
+# NOTE: While wrangler [site] is traditionally for Workers, 
+# for Cloudflare Pages you must specify your .NET environment variables here:
+[vars]
+DOTNET_VERSION = "8.0"
+
+# Note on Framework Presets & Git Branches:
+# These must be set directly in the Cloudflare Dashboard UI under 
+# Settings > Build & deployments. They will ignore values written in this file.
